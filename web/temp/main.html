@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>浏览文件</title>
+    <script type="text/javascript" charset="UTF-8" src="../js/jquery.min.js"></script>
+
+</head>
+<body class="adminbody">
+<div id="main">
+    <div id="cc" class="" style="width:100%;">
+    <div class="content-page">
+        <iframe id="mainiframe" src="" name="right" frameborder="0" allowtransparency="true" scrolling="true;"
+                style="margin:0px 0px 0px 0px;padding:0px 0px 0px 0px;width:100%;height:100%;background-color:transparent">
+        </iframe>
+    </div>
+    </div>
+</div>
+
+<script>
+
+    function getRequestUrl(url) {
+        // var uri = decodeURI(url);
+        var param = {};
+        url.replace(/([^?&]+)=([^?&]+)/g, function (s, v, k) {
+            param[v] = decodeURIComponent(k);
+            return k + '=' + v;
+        });
+        return param;
+    }
+
+    var href_url = window.location.href;
+    var params = getRequestUrl(href_url);
+    document.getElementById("mainiframe").src = '/fileConverter/temp/' + params.report_content_id + '.pdf';
+
+    (function($) {
+        $(window).resize(resizeWindow);
+        resizeWindow();
+    })(jQuery);
+
+    function resizeWindow() {
+        var winHeight = $(window).height();
+        $('#mainiframe').css({height: (winHeight - 50) + 'px'});
+    }
+</script>
+</body>
+</html>
